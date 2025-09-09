@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Pre-push hook to run spotlessCheck on the entire project
+
+echo "Running spotlessCheck on the entire project..."
+
+# Run spotlessCheck on the entire project
+./gradlew spotlessCheck
+
+# Check the exit code
+if [ $? -ne 0 ]; then
+    echo "Spotless check failed! Please fix the formatting issues before pushing."
+    echo "You can run './gradlew spotlessApply' to automatically fix formatting issues."
+    exit 1
+fi
+
+echo "Spotless check passed. Ready to push."

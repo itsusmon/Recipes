@@ -92,6 +92,9 @@ spotless {
     kotlin {
         target("**/*.kt")
         targetExclude("**/build/**/*.kt")
+        if (project.hasProperty("spotlessFiles")) {
+            target(project.property("spotlessFiles").toString().split(','))
+        }
         ktlint(libs.versions.ktlint.get())
             .editorConfigOverride(
                 mapOf(
@@ -105,6 +108,9 @@ spotless {
     kotlinGradle {
         target("**/*.kts")
         targetExclude("**/build/**/*.kts")
+        if (project.hasProperty("spotlessFiles")) {
+            target(project.property("spotlessFiles").toString().split(','))
+        }
         ktlint(libs.versions.ktlint.get())
         trimTrailingWhitespace()
         leadingTabsToSpaces()
