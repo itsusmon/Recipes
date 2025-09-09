@@ -1,8 +1,9 @@
 import extensions.kotlinAndroid
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import utils.Config
 
 kotlinAndroid {
+    val config = Config.requireInstance()
     compilerOptions {
-        jvmTarget = JvmTarget.JVM_11
+        jvmTarget = config.jvmTarget
     }
 }

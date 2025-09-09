@@ -1,5 +1,6 @@
 package extensions
 
+import groovy.lang.MissingPropertyException
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
 import org.jetbrains.kotlin.gradle.dsl.KotlinAndroidExtension
@@ -24,4 +25,12 @@ fun KotlinMultiplatformExtension.configureAppleTargets(block: KotlinNativeTarget
     targets.filterIsInstance<KotlinNativeTarget>().forEach { target ->
         if (target.konanTarget.family.isAppleFamily) block(target)
     }
+}
+
+fun Project.requiredProperty(name: String): String = property(name)?.toString()
+    ?: throw MissingPropertyException(name, String::class.java)
+
+fun Project.intProperty(name: String): Int {
+    return requiredProperty(name).toIntOrNull()
+        ?: throw TypeCastException("Property $name has been found, but could not be cast to Int")
 }

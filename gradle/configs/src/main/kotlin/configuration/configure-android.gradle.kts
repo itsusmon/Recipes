@@ -2,16 +2,19 @@ import com.android.build.gradle.BaseExtension
 import extensions.isAndroidApplicationModule
 import extensions.isAndroidLibraryModule
 import extensions.isMultiplatformModule
+import utils.Config
 
 configure<BaseExtension> {
-    compileSdkVersion(36)
+    val config = Config.requireInstance()
+
+    compileSdkVersion(config.compileSdk)
     defaultConfig {
-        minSdk = 21
+        minSdk = config.minSdk
 
         if (isAndroidApplicationModule()) {
-            targetSdk = 36
-            versionCode = 1
-            versionName = "1.0.0"
+            targetSdk = config.targetSdk
+            versionCode = config.versionCode
+            versionName = config.versionName
         }
 
         if (isAndroidLibraryModule()) {
@@ -23,8 +26,8 @@ configure<BaseExtension> {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
+        sourceCompatibility = config.javaVersion
+        targetCompatibility = config.javaVersion
     }
 
     testOptions {

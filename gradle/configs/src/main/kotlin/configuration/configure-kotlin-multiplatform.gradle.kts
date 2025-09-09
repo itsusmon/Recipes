@@ -1,10 +1,12 @@
 import extensions.kotlinMultiplatform
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.plugin.mpp.KotlinAndroidTarget
+import utils.Config
 
 @OptIn(ExperimentalKotlinGradlePluginApi::class)
 kotlinMultiplatform {
+    val config = Config.requireInstance()
+
     applyDefaultHierarchyTemplate {
         common {
             group("commonJvm") {
@@ -23,12 +25,12 @@ kotlinMultiplatform {
 
     androidTarget {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+            jvmTarget = config.jvmTarget
         }
     }
     jvm("desktop") {
         compilerOptions {
-            jvmTarget = JvmTarget.JVM_11
+            jvmTarget = config.jvmTarget
         }
     }
 
