@@ -6,6 +6,8 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.spotless)
+    alias(libs.plugins.detekt)
 }
 
 kotlin {
@@ -17,7 +19,7 @@ kotlin {
 
     listOf(
         iosArm64(),
-        iosSimulatorArm64()
+        iosSimulatorArm64(),
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
@@ -56,12 +58,12 @@ kotlin {
 
 android {
     namespace = "app.recipes"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
+    compileSdk = property("android.compileSdk").toString().toInt()
 
     defaultConfig {
         applicationId = "app.recipes"
-        minSdk = libs.versions.android.minSdk.get().toInt()
-        targetSdk = libs.versions.android.targetSdk.get().toInt()
+        minSdk = property("android.minSdk").toString().toInt()
+        targetSdk = property("android.targetSdk").toString().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -83,5 +85,35 @@ android {
 
 dependencies {
     debugImplementation(compose.uiTooling)
+    detektPlugins(libs.detekt.formatting)
 }
 
+spotless {
+    kotlin {
+        target("**/*.kt")
+        targetExclude("**/build/**/*.kt")
+        ktlint(libs.versions.ktlint.get())
+            .editorConfigOverride(
+                mapOf(
+                    "ktlint_standard_function-naming" to "disabled",
+                ),
+            )
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
+    }
+    kotlinGradle {
+        target("**/*.kts")
+        targetExclude("**/build/**/*.kts")
+        ktlint(libs.versions.ktlint.get())
+        trimTrailingWhitespace()
+        leadingTabsToSpaces()
+        endWithNewline()
+    }
+}
+
+// Configure Detekt
+detekt {
+    config.setFrom(rootProject.layout.projectDirectory.file("config/detekt/detekt.yml"))
+    buildUponDefaultConfig = true
+}

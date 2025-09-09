@@ -7,9 +7,7 @@ import kotlin.uuid.Uuid
 internal class RecipeDetailsScreenImpl(
     override val recipeId: Uuid,
 ) : RecipeDetailsScreen {
-
     @Composable
     override fun Content() {
-
     }
 }

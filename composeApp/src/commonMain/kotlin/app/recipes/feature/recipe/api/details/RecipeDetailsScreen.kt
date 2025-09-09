@@ -4,6 +4,5 @@ import cafe.adriel.voyager.core.screen.Screen
 import kotlin.uuid.Uuid
 
 interface RecipeDetailsScreen : Screen {
-
     val recipeId: Uuid
 }

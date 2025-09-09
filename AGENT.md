@@ -431,3 +431,9 @@ This is a Kotlin Multiplatform (KMP) project targeting Android and iOS using Com
    - Document complex business logic with inline comments
    - Maintain README with setup and usage instructions
    - Update this QWEN.md file as architecture decisions evolve
+
+## File Modification Policy
+
+- **Do not modify this file unless explicitly asked to do so**
+- Always ask for permission before making changes to this file
+- This file contains important project context and instructions that should be preserved
