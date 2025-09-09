@@ -1,10 +1,9 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Pre-commit hook to run spotlessApply on changed Kotlin files
 
 # Get the list of staged Kotlin files
-STAGED_KOTLIN_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(kt|kts) | tr '
-' ',' | sed 's/,$//')
+STAGED_KOTLIN_FILES=$(git diff --cached --name-only --diff-filter=ACMR | grep -E '\.(kt|kts)$' | tr '\n' ',' | sed 's/,$//')
 
 # If there are no Kotlin files, exit early
 if [ -z "$STAGED_KOTLIN_FILES" ]; then
