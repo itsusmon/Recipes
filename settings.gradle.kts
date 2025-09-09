@@ -1,5 +1,6 @@
 rootProject.name = "Recipes"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
+includeBuild("gradle/configs")
 
 pluginManagement {
     repositories {
