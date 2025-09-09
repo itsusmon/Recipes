@@ -2,4 +2,12 @@ package app.recipes
 
 import androidx.compose.ui.window.ComposeUIViewController
 
-fun MainViewController() = ComposeUIViewController { App() }
+@Suppress("unused", "FunctionName") // Called from Swift
+fun MainViewController() = ComposeUIViewController(
+    configure = {
+
+    },
+    content = {
+        App()
+    },
+)
