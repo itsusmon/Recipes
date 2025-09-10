@@ -19,8 +19,8 @@ data class Config(
         var compileSdk: Int = 33
         var versionCode: Int = 1
         var versionName: String = "1.0.0"
-        var javaVersion: JavaVersion = JavaVersion.VERSION_21
-        var jvmTarget: JvmTarget = JvmTarget.JVM_21
+        var javaVersion: Int = 21
+        var jvmTarget: Int = javaVersion
 
         internal fun build() = Config(
             minSdk = minSdk,
@@ -28,8 +28,8 @@ data class Config(
             compileSdk = compileSdk,
             versionCode = versionCode,
             versionName = versionName,
-            javaVersion = javaVersion,
-            jvmTarget = jvmTarget,
+            javaVersion = JavaVersion.toVersion(javaVersion),
+            jvmTarget = JvmTarget.fromTarget(jvmTarget.toString()),
         )
     }
 
